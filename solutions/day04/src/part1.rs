@@ -1,11 +1,18 @@
+use crate::utils;
+
 use std::{
     fs::File,
     io::{BufReader, Lines},
 };
 
 pub fn solution(lines: Lines<BufReader<File>>) -> i64 {
-    for line in lines {
-        if let Ok(s) = line {
+    let (nums, mut boards) = utils::parse_input(lines);
+
+    for num in &nums {
+        for board in &mut boards {
+            if let Some(x) = board.check_num(*num) {
+                return x;
+            }
         }
     }
 
@@ -18,6 +25,6 @@ mod tests {
 
     #[test]
     fn sample() {
-        assert_eq!(0, solution(crate::get_input("test")));
+        assert_eq!(4512, solution(crate::get_input("test")));
     }
 }
