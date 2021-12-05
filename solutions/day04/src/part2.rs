@@ -24,10 +24,6 @@ pub fn solution(lines: Lines<BufReader<File>>) -> i64 {
         for index in to_remove.iter().rev() {
             boards.remove(*index);
         }
-
-        if boards.is_empty() {
-            break;
-        }
     }
 
     last_score
