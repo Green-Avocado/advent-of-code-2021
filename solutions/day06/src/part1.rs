@@ -1,8 +1,12 @@
-pub fn solution(nums: [u16; 9]) -> i64 {
-    for num in nums {
+const TIMESPAN: u16 = 80;
+
+pub fn solution(mut nums: [u32; 9]) -> i64 {
+    for _i in 0..TIMESPAN {
+        nums.rotate_left(1);
+        nums[6] += nums[8];
     }
 
-    0
+    nums.iter().sum::<u32>().into()
 }
 
 #[cfg(test)]

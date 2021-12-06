@@ -1,7 +1,4 @@
-pub fn solution(nums: [u16; 9]) -> i64 {
-    for num in nums {
-    }
-
+pub fn solution(mut nums: [u32; 9]) -> i64 {
     0
 }
 
