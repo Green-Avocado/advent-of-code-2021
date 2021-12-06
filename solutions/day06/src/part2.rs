@@ -1,5 +1,12 @@
-pub fn solution(mut nums: [u32; 9]) -> i64 {
-    0
+const TIMESPAN: u16 = 256;
+
+pub fn solution(mut nums: [u64; 9]) -> i64 {
+    for _i in 0..TIMESPAN {
+        nums.rotate_left(1);
+        nums[6] += nums[8];
+    }
+
+    nums.iter().sum::<u64>() as i64
 }
 
 #[cfg(test)]
@@ -8,6 +15,6 @@ mod tests {
 
     #[test]
     fn sample() {
-        assert_eq!(0, solution(crate::get_input("test")));
+        assert_eq!(26984457539, solution(crate::get_input("test")));
     }
 }

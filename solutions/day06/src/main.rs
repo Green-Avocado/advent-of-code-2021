@@ -6,7 +6,7 @@ use std::{
     io::{BufRead, BufReader},
 };
 
-fn get_input(filename: &str) -> [u32; 9] {
+fn get_input(filename: &str) -> [u64; 9] {
     let input = File::open(format!("./data/{}", filename)).expect("Could not read file");
 
     let nums_string = BufReader::new(input).lines().next().unwrap().unwrap();
