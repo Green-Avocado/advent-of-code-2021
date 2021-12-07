@@ -21,9 +21,8 @@ fn get_input(filename: &str) -> [u64; 9] {
 }
 
 fn main() {
-    let nums_part1 = get_input("input");
-    let nums_part2 = nums_part1.clone();
+    let nums = get_input("input");
 
-    println!("Part 1: {}", part1::solution(nums_part1));
-    println!("Part 2: {}", part2::solution(nums_part2));
+    println!("Part 1: {}", part1::solution(&nums));
+    println!("Part 2: {}", part2::solution(&nums));
 }
