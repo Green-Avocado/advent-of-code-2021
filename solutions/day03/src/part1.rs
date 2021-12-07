@@ -12,11 +12,7 @@ pub fn solution(lines: Lines<BufReader<File>>) -> i64 {
             let mut i = 0;
 
             for c in s.chars() {
-                let n = if c == '1' {
-                    1
-                } else {
-                    0
-                };
+                let n = if c == '1' { 1 } else { 0 };
 
                 match totals.get_mut(i) {
                     Some(x) => *x += n,
@@ -39,7 +35,7 @@ pub fn solution(lines: Lines<BufReader<File>>) -> i64 {
         } else {
             epsilon += multiplier;
         }
-        
+
         multiplier *= 2;
     }
 
