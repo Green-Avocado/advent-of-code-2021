@@ -1,42 +1,42 @@
 use std::{
+    collections::VecDeque,
     fs::File,
-    io::{BufReader, Lines}, collections::LinkedList, str::Chars,
+    io::{BufReader, Lines},
 };
 
 pub fn solution(lines: Lines<BufReader<File>>) -> i64 {
-    let mut oxygen_list = LinkedList::new();
-    let mut carbon_list = LinkedList::new();
+    let mut oxygen_list = VecDeque::new();
+    let mut carbon_list = VecDeque::new();
 
-    let mut strings = Vec::new();
+    let mut nums = Vec::new();
 
     for line in lines {
         if let Ok(s) = line {
-            strings.push(s);
+            nums.push(s.chars().map(|x| x == '1').collect::<Vec<bool>>());
         }
     }
 
-    for string in &strings {
-        let digits = string.chars();
-        oxygen_list.push_front(digits.clone());
-        carbon_list.push_front(digits.clone());
+    for num in &nums {
+        oxygen_list.push_front(num.iter());
+        carbon_list.push_front(num.iter());
     }
 
     (get_rating(true, oxygen_list) * get_rating(false, carbon_list)) as i64
 }
 
-fn get_rating(most_common: bool, mut list: LinkedList<Chars>) -> u32 {
+fn get_rating(most_common: bool, mut list: VecDeque<std::slice::Iter<bool>>) -> u32 {
     let mut rating = 0;
 
     loop {
-        let mut ones = LinkedList::new();
-        let mut zeros = LinkedList::new();
+        let mut ones = VecDeque::new();
+        let mut zeros = VecDeque::new();
 
         for mut digits in list {
             match digits.next() {
-                Some('0') => {
+                Some(false) => {
                     zeros.push_front(digits.clone());
                 }
-                Some('1') => {
+                Some(true) => {
                     ones.push_front(digits.clone());
                 }
                 _ => break,
@@ -61,7 +61,7 @@ fn get_rating(most_common: bool, mut list: LinkedList<Chars>) -> u32 {
         if list.len() == 1 {
             for x in list.pop_front().unwrap() {
                 rating *= 2;
-                if x == '1' {
+                if *x {
                     rating += 1;
                 }
             }
@@ -72,7 +72,6 @@ fn get_rating(most_common: bool, mut list: LinkedList<Chars>) -> u32 {
 
     rating
 }
-
 
 #[cfg(test)]
 mod tests {
