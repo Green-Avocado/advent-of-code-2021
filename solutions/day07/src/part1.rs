@@ -1,14 +1,4 @@
-pub fn solution(nums: &Vec<u16>) -> i64 {
-    let mut frequencies = Vec::new();
-
-    for n in nums {
-        while *n as usize >= frequencies.len() {
-            frequencies.push(0);
-        }
-
-        *frequencies.get_mut(*n as usize).unwrap() += 1;
-    }
-
+pub fn solution(frequencies: &Vec<u32>) -> i64 {
     let mut iterator = frequencies.iter();
 
     let mut left = *iterator.next().unwrap();

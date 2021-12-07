@@ -1,4 +1,4 @@
-pub fn solution(nums: &Vec<u16>) -> i64 {
+pub fn solution(frequencies: &Vec<u32>) -> i64 {
     0
 }
 

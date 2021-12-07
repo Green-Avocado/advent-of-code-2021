@@ -6,8 +6,10 @@ use std::{
     io::{BufRead, BufReader},
 };
 
-fn get_input(filename: &str) -> Vec<u16> {
+fn get_input(filename: &str) -> Vec<u32> {
     let input = File::open(format!("./data/{}", filename)).expect("Could not read file");
+
+    let mut frequencies = Vec::new();
 
     BufReader::new(input)
         .lines()
@@ -15,13 +17,22 @@ fn get_input(filename: &str) -> Vec<u16> {
         .unwrap()
         .unwrap()
         .split(',')
-        .map(|x| x.parse().unwrap())
-        .collect()
+        .for_each(|x| {
+            let n: u32 = x.parse().unwrap();
+                
+            while n as usize >= frequencies.len() {
+                frequencies.push(0);
+            }
+
+            *frequencies.get_mut(n as usize).unwrap() += 1;
+        });
+
+    frequencies
 }
 
 fn main() {
-    let nums = get_input("input");
+    let frequencies = get_input("input");
 
-    println!("Part 1: {}", part1::solution(&nums));
-    println!("Part 2: {}", part2::solution(&nums));
+    println!("Part 1: {}", part1::solution(&frequencies));
+    println!("Part 2: {}", part2::solution(&frequencies));
 }
