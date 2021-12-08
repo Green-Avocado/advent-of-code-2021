@@ -8,9 +8,9 @@ pub fn solution(lines: Lines<BufReader<File>>) -> i64 {
 
     for line in lines {
         if let Ok(s) = line {
-            s.split(" | ")
-                .last()
+            s.split_once(" | ")
                 .unwrap()
+                .1
                 .split(' ')
                 .for_each(|x| match x.len() {
                     2 | 3 | 4 | 7 => ans += 1,
