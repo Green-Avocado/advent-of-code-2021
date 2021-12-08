@@ -1,7 +1,14 @@
 use std::{
     fs::File,
-    io::{BufReader, Lines},
+    io::{BufReader, Lines, BufRead},
 };
+
+pub fn get_input(filename: &str) -> Lines<BufReader<File>> {
+    let input = File::open(format!("./data/{}", filename)).expect("Could not read file");
+
+    BufReader::new(input).lines()
+}
+
 
 pub struct BingoBoard {
     pub points_remaining: u32,

@@ -35,6 +35,6 @@ mod tests {
 
     #[test]
     fn sample() {
-        assert_eq!(37, solution(&crate::get_input("test")));
+        assert_eq!(37, solution(&crate::utils::get_input("test")));
     }
 }

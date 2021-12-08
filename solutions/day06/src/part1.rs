@@ -16,6 +16,6 @@ mod tests {
 
     #[test]
     fn sample() {
-        assert_eq!(5934, solution(&crate::get_input("test")));
+        assert_eq!(5934, solution(&crate::utils::get_input("test")));
     }
 }

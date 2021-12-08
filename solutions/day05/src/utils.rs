@@ -1,4 +1,15 @@
-use std::collections::HashMap;
+use std::{
+    collections::HashMap,
+    fs::File,
+    io::{BufRead, BufReader, Lines},
+};
+
+pub fn get_input(filename: &str) -> Lines<BufReader<File>> {
+    let input = File::open(format!("./data/{}", filename)).expect("Could not read file");
+
+    BufReader::new(input).lines()
+}
+
 
 pub fn fill_points((mut x, mut y): (u16, u16), (x1, y1): (u16, u16), points_map: &mut HashMap<(u16, u16), bool>) -> u32 {
     let mut overlaps = 0;
