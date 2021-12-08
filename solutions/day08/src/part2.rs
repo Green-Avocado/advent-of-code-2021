@@ -15,7 +15,7 @@ pub fn solution(lines: Lines<BufReader<File>>) -> i64 {
 
             for ps in pattern_string.split_ascii_whitespace() {
                 let bitmap = to_bitmap(ps);
-                match count_bits(bitmap) {
+                match ps.len() {
                     2 => one_map = bitmap,
                     4 => four_map = bitmap,
                     _ => (),
@@ -71,18 +71,6 @@ fn to_bitmap(s: &str) -> u8 {
     bitmap
 }
 
-fn count_bits(num: u8) -> u8 {
-    let mut ones = 0;
-
-    for i in 0..8 {
-        if num & (1 << i) > 0 {
-            ones += 1;
-        }
-    }
-
-    ones
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -99,13 +87,5 @@ mod tests {
         assert_eq!(0b01000000, to_bitmap("g"));
         assert_eq!(0b01010101, to_bitmap("aceg"));
         assert_eq!(0b01111111, to_bitmap("abcdefg"));
-    }
-
-    #[test]
-    fn test_count_bits() {
-        assert_eq!(0, count_bits(0b00000000));
-        assert_eq!(1, count_bits(0b00000010));
-        assert_eq!(4, count_bits(0b10101010));
-        assert_eq!(8, count_bits(0b11111111));
     }
 }
