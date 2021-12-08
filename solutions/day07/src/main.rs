@@ -1,6 +1,6 @@
-mod utils;
 mod part1;
 mod part2;
+mod utils;
 
 fn main() {
     let frequencies = utils::get_input("input");

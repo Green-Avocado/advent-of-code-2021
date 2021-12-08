@@ -1,8 +1,9 @@
 use crate::utils;
 
 use std::{
+    collections::HashMap,
     fs::File,
-    io::{BufReader, Lines}, collections::HashMap,
+    io::{BufReader, Lines},
 };
 
 pub fn solution(lines: Lines<BufReader<File>>) -> i64 {

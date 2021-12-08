@@ -10,12 +10,16 @@ pub fn get_input(filename: &str) -> Lines<BufReader<File>> {
     BufReader::new(input).lines()
 }
 
-
-pub fn fill_points((mut x, mut y): (u16, u16), (x1, y1): (u16, u16), points_map: &mut HashMap<(u16, u16), bool>) -> u32 {
+pub fn fill_points(
+    (mut x, mut y): (u16, u16),
+    (x1, y1): (u16, u16),
+    points_map: &mut HashMap<(u16, u16), bool>,
+) -> u32 {
     let mut overlaps = 0;
 
     loop {
-        points_map.entry((x, y))
+        points_map
+            .entry((x, y))
             .and_modify(|e| {
                 if !*e {
                     overlaps += 1;
@@ -23,7 +27,7 @@ pub fn fill_points((mut x, mut y): (u16, u16), (x1, y1): (u16, u16), points_map:
                 }
             })
             .or_insert(false);
-        
+
         if x == x1 && y == y1 {
             break;
         }

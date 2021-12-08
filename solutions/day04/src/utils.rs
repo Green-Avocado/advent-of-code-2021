@@ -1,6 +1,6 @@
 use std::{
     fs::File,
-    io::{BufReader, Lines, BufRead},
+    io::{BufRead, BufReader, Lines},
 };
 
 pub fn get_input(filename: &str) -> Lines<BufReader<File>> {
@@ -8,7 +8,6 @@ pub fn get_input(filename: &str) -> Lines<BufReader<File>> {
 
     BufReader::new(input).lines()
 }
-
 
 pub struct BingoBoard {
     pub points_remaining: u32,

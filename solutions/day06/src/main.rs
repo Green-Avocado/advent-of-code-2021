@@ -1,6 +1,6 @@
-mod utils;
 mod part1;
 mod part2;
+mod utils;
 
 fn main() {
     let nums = utils::get_input("input");

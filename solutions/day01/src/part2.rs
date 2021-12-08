@@ -1,7 +1,7 @@
 use std::{
+    collections::VecDeque,
     fs::File,
     io::{BufReader, Lines},
-    collections::VecDeque,
 };
 
 pub fn solution(mut lines: Lines<BufReader<File>>) -> i64 {

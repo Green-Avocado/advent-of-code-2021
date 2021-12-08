@@ -16,7 +16,7 @@ pub fn get_input(filename: &str) -> Vec<u32> {
         .split(',')
         .for_each(|x| {
             let n: u32 = x.parse().unwrap();
-                
+
             while n as usize >= frequencies.len() {
                 frequencies.push(0);
             }
