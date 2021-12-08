@@ -3,13 +3,23 @@ use std::{
     io::{BufReader, Lines},
 };
 
-pub fn solution(mut lines: Lines<BufReader<File>>) -> i64 {
+pub fn solution(lines: Lines<BufReader<File>>) -> i64 {
+    let mut ans = 0;
+
     for line in lines {
         if let Ok(s) = line {
+            s.split(" | ")
+                .last()
+                .unwrap()
+                .split(' ')
+                .for_each(|x| match x.len() {
+                    2 | 3 | 4 | 7 => ans += 1,
+                    _ => (),
+                })
         }
     }
 
-    0
+    ans
 }
 
 #[cfg(test)]
@@ -21,5 +31,3 @@ mod tests {
         assert_eq!(26, solution(crate::utils::get_input("test")));
     }
 }
-
-
