@@ -2,7 +2,7 @@ use std::{
     cell::RefCell,
     fs::File,
     io::{BufRead, BufReader, Lines},
-    rc::Rc,
+    rc::Rc, slice::Iter,
 };
 
 pub struct Basin {
@@ -18,7 +18,7 @@ pub fn get_input(filename: &str) -> Lines<BufReader<File>> {
 
 pub fn get_line_basins(
     current_nums: &Vec<u8>,
-    mut prev_basins: impl Iterator<Item = Option<Rc<RefCell<Basin>>>>,
+    prev_basins: Option<Vec<Option<Rc<RefCell<Basin>>>>>,
     all_basins_vec: &mut Vec<Rc<RefCell<Basin>>>
 ) -> Vec<Option<Rc<RefCell<Basin>>>> {
     let mut basins = Vec::new();
@@ -28,8 +28,18 @@ pub fn get_line_basins(
         size: 0,
     }));
 
+    let mut prev_basins_iter = if let Some(i) = prev_basins.as_ref() {
+        Some(i.iter())
+    } else {
+        None
+    };
+
     for n in current_nums {
-        let prev_basin_option = prev_basins.next().unwrap();
+        let prev_basin_option = if let Some(i) = prev_basins_iter.as_mut() {
+            i.next().unwrap()
+        } else {
+            &None
+        };
 
         if *n != 9 {
             basins.push(Some(Rc::clone(&current_basin)));
