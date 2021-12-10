@@ -2,12 +2,12 @@ use std::{
     cell::RefCell,
     fs::File,
     io::{BufRead, BufReader, Lines},
-    rc::Rc, slice::Iter,
+    rc::Rc,
 };
 
 pub struct Basin {
-    parent: Option<Rc<RefCell<Basin>>>,
-    size: u16,
+    pub parent: Option<Rc<RefCell<Basin>>>,
+    pub size: u16,
 }
 
 pub fn get_input(filename: &str) -> Lines<BufReader<File>> {
