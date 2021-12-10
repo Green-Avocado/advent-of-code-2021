@@ -1,12 +1,71 @@
 use std::{
     fs::File,
-    io::{BufRead, BufReader, Lines},
+    io::{BufRead, BufReader, Lines}, rc::Rc, cell::RefCell,
 };
+
+pub struct Basin {
+    parent: Option<Rc<RefCell<Basin>>>,
+    size: u16,
+}
 
 pub fn get_input(filename: &str) -> Lines<BufReader<File>> {
     let input = File::open(format!("./data/{}", filename)).expect("Could not read file");
 
     BufReader::new(input).lines()
+}
+
+pub fn get_line_basins(current_nums: &Vec<u8>, prev_basins: Vec<Option<Rc<RefCell<Basin>>>>) -> Vec<Option<Rc<RefCell<Basin>>>> {
+    let mut basins = Vec::new();
+    let mut prev_basins_iter = prev_basins.iter();
+
+    let mut current_basin = Rc::new(RefCell::new(Basin {
+        parent: None,
+        size: 0,
+    }));
+
+    for n in current_nums {
+        let prev_basin_option = prev_basins_iter.next().unwrap();
+
+        if *n != 9 {
+            if current_basin.borrow().size == 0 {
+                basins.push(Some(Rc::clone(&current_basin)));
+            }
+
+            {
+                current_basin.borrow_mut().size += 1;
+            }
+
+            if let Some(prev_basin) = prev_basin_option.as_ref() {
+                let mut parent_basin = Rc::clone(prev_basin);
+
+                loop {
+                    if let Some(parent) = &Rc::clone(&parent_basin).borrow().parent {
+                        parent_basin = Rc::clone(parent);
+                    } else {
+                        break;
+                    }
+                }
+
+                if !Rc::ptr_eq(&parent_basin, &current_basin) {
+                    {
+                        parent_basin.borrow_mut().parent = Some(Rc::clone(&current_basin));
+                    }
+                    {
+                        current_basin.borrow_mut().size += parent_basin.borrow().size;
+                    }
+                }
+            }
+        } else {
+            basins.push(None);
+
+            current_basin = Rc::new(RefCell::new(Basin {
+                parent: None,
+                size: 0,
+            }));
+        }
+    }
+
+    basins
 }
 
 pub fn get_local_mins(current_nums: &Vec<u8>, prev_nums: Option<&Vec<u8>>, next_nums: Option<&Vec<u8>>) -> Vec<u8> {
