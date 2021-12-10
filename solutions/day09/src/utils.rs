@@ -19,6 +19,7 @@ pub fn get_input(filename: &str) -> Lines<BufReader<File>> {
 pub fn get_line_basins(
     current_nums: &Vec<u8>,
     mut prev_basins: impl Iterator<Item = Option<Rc<RefCell<Basin>>>>,
+    all_basins_vec: &mut Vec<Rc<RefCell<Basin>>>
 ) -> Vec<Option<Rc<RefCell<Basin>>>> {
     let mut basins = Vec::new();
 
@@ -31,8 +32,10 @@ pub fn get_line_basins(
         let prev_basin_option = prev_basins.next().unwrap();
 
         if *n != 9 {
+            basins.push(Some(Rc::clone(&current_basin)));
+
             if current_basin.borrow().size == 0 {
-                basins.push(Some(Rc::clone(&current_basin)));
+                all_basins_vec.push(Rc::clone(&current_basin));
             }
 
             {
