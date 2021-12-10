@@ -11,7 +11,11 @@ pub fn solution(lines: Lines<BufReader<File>>) -> i64 {
 
     for line in lines {
         if let Ok(s) = line {
-            prev_basins = Some(get_line_basins(&line_to_vec(s), prev_basins, &mut all_basins));
+            prev_basins = Some(get_line_basins(
+                &line_to_vec(s),
+                prev_basins,
+                &mut all_basins,
+            ));
         }
     }
 

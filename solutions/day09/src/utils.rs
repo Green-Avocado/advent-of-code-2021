@@ -19,7 +19,7 @@ pub fn get_input(filename: &str) -> Lines<BufReader<File>> {
 pub fn get_line_basins(
     current_nums: &Vec<u8>,
     prev_basins: Option<Vec<Option<Rc<RefCell<Basin>>>>>,
-    all_basins_vec: &mut Vec<Rc<RefCell<Basin>>>
+    all_basins_vec: &mut Vec<Rc<RefCell<Basin>>>,
 ) -> Vec<Option<Rc<RefCell<Basin>>>> {
     let mut basins = Vec::new();
 
