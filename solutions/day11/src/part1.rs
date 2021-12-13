@@ -1,14 +1,4 @@
-use std::{
-    fs::File,
-    io::{BufReader, Lines},
-};
-
-pub fn solution(lines: Lines<BufReader<File>>) -> i64 {
-    for line in lines {
-        if let Ok(s) = line {
-        }
-    }
-
+pub fn solution(grid: &Vec<Vec<u8>>) -> i64 {
     0
 }
 
@@ -18,6 +8,6 @@ mod tests {
 
     #[test]
     fn sample() {
-        assert_eq!(0, solution(crate::utils::get_input("test")));
+        assert_eq!(0, solution(&crate::utils::get_input("test")));
     }
 }
