@@ -1,14 +1,6 @@
-use std::{
-    fs::File,
-    io::{BufReader, Lines},
-};
+use std:: collections::HashMap;
 
-pub fn solution(lines: Lines<BufReader<File>>) -> i64 {
-    for line in lines {
-        if let Ok(s) = line {
-        }
-    }
-
+pub fn solution(graph: &HashMap<String, Vec<String>>) -> i64 {
     0
 }
 
@@ -18,8 +10,8 @@ mod tests {
 
     #[test]
     fn sample() {
-        assert_eq!(0, solution(crate::utils::get_input("test0")));
-        assert_eq!(0, solution(crate::utils::get_input("test1")));
-        assert_eq!(0, solution(crate::utils::get_input("test2")));
+        assert_eq!(0, solution(&crate::utils::get_input("test0")));
+        assert_eq!(0, solution(&crate::utils::get_input("test1")));
+        assert_eq!(0, solution(&crate::utils::get_input("test2")));
     }
 }

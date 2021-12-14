@@ -3,6 +3,8 @@ mod part2;
 mod utils;
 
 fn main() {
-    println!("Part 1: {}", part1::solution(utils::get_input("input")));
-    println!("Part 2: {}", part2::solution(utils::get_input("input")));
+    let graph = utils::get_input("input");
+
+    println!("Part 1: {}", part1::solution(&graph));
+    println!("Part 2: {}", part2::solution(&graph));
 }
