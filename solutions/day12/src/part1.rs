@@ -15,7 +15,7 @@ fn count_paths(graph: &HashMap<String, Vec<String>>, node: &String, mut path: Ve
     let branches = graph.get(node).unwrap();
 
     for branch in branches {
-        if !path.contains(branch) || branch.to_uppercase() == *branch {
+        if branch.to_uppercase() == *branch || !path.contains(branch) {
             count += count_paths(graph, branch, path.clone());
         }
     }
