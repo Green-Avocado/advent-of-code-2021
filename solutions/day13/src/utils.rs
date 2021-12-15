@@ -50,7 +50,6 @@ pub fn fold_paper(points: &HashSet<(u16, u16)>, fold: &(u16, bool)) -> HashSet<(
             *to_reflect = fold_line - (*to_reflect - fold_line);
         }
 
-        println!("{} {}", x, y);
         final_points.insert((x, y));
     }
 
