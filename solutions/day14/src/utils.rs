@@ -26,3 +26,29 @@ pub fn get_input(filename: &str) -> (String, HashMap<(char, char), char>) {
 
     (template, rules)
 }
+
+pub fn apply_substitutions(string: String, rules: &HashMap<(char, char), char>) -> String {
+    let mut result = String::new();
+
+    let mut chars = string.chars();
+
+    let mut right = chars.next().unwrap();
+
+    loop {
+        result.push(right);
+
+        let left = right;
+
+        if let Some(next_char) = chars.next() {
+            right = next_char;
+
+            if let Some(insert_char) = rules.get(&(left, right)) {
+                result.push(*insert_char);
+            }
+        } else {
+            break;
+        }
+    }
+
+    result
+}
