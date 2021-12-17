@@ -1,32 +1,15 @@
 use std::collections::HashMap;
 
-pub fn solution((template, rules): &(String, HashMap<(char, char), char>)) -> i64 {
-    let mut freq_map = HashMap::new();
+use crate::utils::{apply_substitutions, get_freq_diff, get_pairs};
 
-    let mut polymer = template.clone();
+pub fn solution((template, rules): &(String, HashMap<(char, char), char>)) -> i64 {
+    let mut pair_map = get_pairs(template);
 
     for _i in 0..10 {
-        polymer = crate::utils::apply_substitutions(polymer, rules);
+        pair_map = apply_substitutions(pair_map, rules);
     }
 
-    for c in polymer.chars() {
-        *freq_map.entry(c).or_insert(0) += 1;
-    }
-
-    let mut low_freq = 0;
-    let mut high_freq = 0;
-
-    for &freq in freq_map.values() {
-        if freq > high_freq || high_freq == 0 {
-            high_freq = freq;
-        }
-
-        if freq < low_freq || low_freq == 0 {
-            low_freq = freq;
-        }
-    }
-
-    high_freq - low_freq
+    get_freq_diff(template, pair_map) as i64
 }
 
 #[cfg(test)]

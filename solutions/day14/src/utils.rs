@@ -27,28 +27,62 @@ pub fn get_input(filename: &str) -> (String, HashMap<(char, char), char>) {
     (template, rules)
 }
 
-pub fn apply_substitutions(string: String, rules: &HashMap<(char, char), char>) -> String {
-    let mut result = String::new();
+pub fn get_pairs(string: &String) -> HashMap<(char, char), u128> {
+    let mut pair_map = HashMap::new();
 
     let mut chars = string.chars();
 
     let mut right = chars.next().unwrap();
 
     loop {
-        result.push(right);
-
         let left = right;
 
-        if let Some(next_char) = chars.next() {
+        if let Some(next_char) =  chars.next() {
             right = next_char;
 
-            if let Some(insert_char) = rules.get(&(left, right)) {
-                result.push(*insert_char);
-            }
+            *pair_map.entry((left, right)).or_insert(0) += 1;
         } else {
             break;
         }
     }
 
-    result
+    pair_map
+}
+
+pub fn apply_substitutions(mut pair_map: HashMap<(char, char), u128>, rules: &HashMap<(char, char), char>) -> HashMap<(char, char), u128> {
+    let mut new_map = HashMap::new();
+
+    for ((left, right), count) in pair_map {
+        if let Some(&insert_char) = rules.get(&(left, right)) {
+            *new_map.entry((left, insert_char)).or_insert(0) += count;
+            *new_map.entry((insert_char, right)).or_insert(0) += count;
+        }
+    }
+
+    new_map
+}
+
+pub fn get_freq_diff(string: &String, mut pair_map: HashMap<(char, char), u128>) -> u128 {
+    let mut freq_map = HashMap::new();
+
+    for ((left, _right), count) in pair_map {
+        *freq_map.entry(left).or_insert(0) += count;
+    }
+
+    *freq_map.entry(string.chars().last().unwrap()).or_insert(0) += 1;
+
+    let mut low_freq = 0;
+    let mut high_freq = 0;
+
+    for &freq in freq_map.values() {
+        if freq > high_freq || high_freq == 0 {
+            high_freq = freq;
+        }
+
+        if freq < low_freq || low_freq == 0 {
+            low_freq = freq;
+        }
+    }
+
+    high_freq - low_freq
 }
