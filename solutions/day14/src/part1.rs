@@ -1,4 +1,6 @@
-pub fn solution((template, rules): &(String, Vec<(char, char, char)>)) -> i64 {
+use std::collections::HashMap;
+
+pub fn solution((template, rules): &(String, HashMap<(char, char), char>)) -> i64 {
     0
 }
 

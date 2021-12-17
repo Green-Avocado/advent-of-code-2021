@@ -1,14 +1,14 @@
 use std::{
     fs::File,
-    io::{BufRead, BufReader},
+    io::{BufRead, BufReader}, collections::HashMap,
 };
 
-pub fn get_input(filename: &str) -> (String, Vec<(char, char, char)>) {
+pub fn get_input(filename: &str) -> (String, HashMap<(char, char), char>) {
     let input = File::open(format!("./data/{}", filename)).expect("Could not read file");
     let mut lines = BufReader::new(input).lines();
 
     let template = lines.next().unwrap().unwrap();
-    let mut rules = Vec::new();
+    let mut rules = HashMap::new();
 
     for line in lines {
         if let Ok(s) = line {
@@ -19,7 +19,7 @@ pub fn get_input(filename: &str) -> (String, Vec<(char, char, char)>) {
                 let c2 = left_chars.next().unwrap();
                 let c3 = split.1.chars().next().unwrap();
                 
-                rules.push((c1, c2, c3));
+                rules.insert((c1, c2), c3);
             }
         }
     }
