@@ -1,6 +1,7 @@
 use std::{
+    collections::HashMap,
     fs::File,
-    io::{BufRead, BufReader}, collections::HashMap,
+    io::{BufRead, BufReader},
 };
 
 pub fn get_input(filename: &str) -> (String, HashMap<(char, char), char>) {
@@ -18,7 +19,7 @@ pub fn get_input(filename: &str) -> (String, HashMap<(char, char), char>) {
                 let c1 = left_chars.next().unwrap();
                 let c2 = left_chars.next().unwrap();
                 let c3 = split.1.chars().next().unwrap();
-                
+
                 rules.insert((c1, c2), c3);
             }
         }
@@ -37,7 +38,7 @@ pub fn get_pairs(string: &String) -> HashMap<(char, char), u128> {
     loop {
         let left = right;
 
-        if let Some(next_char) =  chars.next() {
+        if let Some(next_char) = chars.next() {
             right = next_char;
 
             *pair_map.entry((left, right)).or_insert(0) += 1;
@@ -49,7 +50,10 @@ pub fn get_pairs(string: &String) -> HashMap<(char, char), u128> {
     pair_map
 }
 
-pub fn apply_substitutions(pair_map: HashMap<(char, char), u128>, rules: &HashMap<(char, char), char>) -> HashMap<(char, char), u128> {
+pub fn apply_substitutions(
+    pair_map: HashMap<(char, char), u128>,
+    rules: &HashMap<(char, char), char>,
+) -> HashMap<(char, char), u128> {
     let mut new_map = HashMap::new();
 
     for ((left, right), count) in pair_map {
