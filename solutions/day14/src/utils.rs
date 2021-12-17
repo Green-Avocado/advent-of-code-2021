@@ -49,7 +49,7 @@ pub fn get_pairs(string: &String) -> HashMap<(char, char), u128> {
     pair_map
 }
 
-pub fn apply_substitutions(mut pair_map: HashMap<(char, char), u128>, rules: &HashMap<(char, char), char>) -> HashMap<(char, char), u128> {
+pub fn apply_substitutions(pair_map: HashMap<(char, char), u128>, rules: &HashMap<(char, char), char>) -> HashMap<(char, char), u128> {
     let mut new_map = HashMap::new();
 
     for ((left, right), count) in pair_map {
@@ -62,7 +62,7 @@ pub fn apply_substitutions(mut pair_map: HashMap<(char, char), u128>, rules: &Ha
     new_map
 }
 
-pub fn get_freq_diff(string: &String, mut pair_map: HashMap<(char, char), u128>) -> u128 {
+pub fn get_freq_diff(string: &String, pair_map: HashMap<(char, char), u128>) -> u128 {
     let mut freq_map = HashMap::new();
 
     for ((left, _right), count) in pair_map {
